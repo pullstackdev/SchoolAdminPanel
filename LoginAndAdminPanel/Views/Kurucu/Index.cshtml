@@ -1,0 +1,37 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<LoginAndAdminPanel.Models.Kurucu>
+
+@{
+    ViewBag.Title = "Kurucu";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">IsActive</th>
+            <th scope="col">İsim</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1;}
+        @foreach (var kurucu in Model)
+        {
+
+            <tr>
+                <th scope="row">@i</th>
+                <td>@kurucu.CreatedDate</td>
+                <td>@kurucu.IsActive</td>
+                <td>@kurucu.Isim</td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>
+
+@*pagination  buttons*@
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+<a href="#" class="btn btn-primary">Yeni Kurucu Ekle</a>

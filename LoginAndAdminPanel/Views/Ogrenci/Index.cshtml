@@ -1,0 +1,48 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<LoginAndAdminPanel.Models.Ogrenci>
+
+
+@{
+    ViewBag.Title = "Öğrenci";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Created Date</th>
+            <th scope="col">IsActive</th>
+            <th scope="col">İsim</th>
+            <th scope="col">Okul</th>
+            <th scope="col">Ögretmen</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{int i = 1;}
+        @foreach (var ogrenci in Model)
+        {
+
+            <tr>
+                <th scope="row">@i</th>
+                <td>@ogrenci.CreatedDate</td>
+                <td>@ogrenci.IsActive</td>
+                <td>@ogrenci.Isim</td>
+                <td>@ogrenci.Okul.Isim</td>
+                <td>@ogrenci.Ogretmen.Isim</td>
+                <td><button type="button" class="btn btn-primary">Detaylar</button></td>
+                <td><a href="/Ogrenci/Update/@ogrenci.Id" type="button" class="btn btn-success">Update</a></td>
+                <td><a href="/Ogrenci/Delete/@ogrenci.Id" type="button" class="btn btn-danger">Delete</a></td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>
+
+@*pagination  buttons*@
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page }))
+
+<a href="#" class="btn btn-primary">Yeni Öğrenci Ekle</a>
